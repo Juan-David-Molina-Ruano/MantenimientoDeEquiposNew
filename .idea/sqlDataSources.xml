@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="0a5cfe40-4086-4b22-8ce8-8b7e9a813c87" name="CONEXION PRUEBA Mapping">
+      <data-sources db="b348f77f-68a2-44f9-b10f-40e1f5ba1fb6" ddl="d14f8785-8ac7-4de7-b283-1efd0d3b6172" />
+      <scope>
+        <node kind="database" negative="1" />
+      </scope>
+    </mapping>
+  </component>
+</project>
