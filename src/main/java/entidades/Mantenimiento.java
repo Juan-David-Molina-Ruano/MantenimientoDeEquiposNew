@@ -1,12 +1,13 @@
 package entidades;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Mantenimiento {
     private  int mantenimientoId;
-    private LocalDateTime fecha;
+    private Date fecha;
     private String descripcion;
     private double costo;
     private String tipoMantenimiento;
@@ -16,7 +17,7 @@ public class Mantenimiento {
     public Mantenimiento() {
     }
 
-    public Mantenimiento(int mantenimientoId, LocalDateTime fecha, String descripcion, String tipoMantenimiento, double costo, int equipoId, Equipo equipo) {
+    public Mantenimiento(int mantenimientoId, Date fecha, String descripcion, String tipoMantenimiento, double costo, int equipoId, Equipo equipo) {
         this.mantenimientoId = mantenimientoId;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -34,11 +35,11 @@ public class Mantenimiento {
         this.mantenimientoId = mantenimientoId;
     }
 
-    public LocalDateTime getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

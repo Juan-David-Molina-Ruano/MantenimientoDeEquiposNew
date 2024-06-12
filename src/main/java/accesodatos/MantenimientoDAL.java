@@ -17,7 +17,7 @@ public class MantenimientoDAL {
 
             String sql = "INSERT INTO MantenimientoPC (Fecha, Descripcion, Costo, TipoMantenimiento, EquipoID) VALUES (?, ?, ?, ?,?)";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                statement.setTimestamp(1, Timestamp.valueOf(mantenimiento.getFecha()));
+                statement.setDate(1,Date.valueOf(String.valueOf(mantenimiento.getFecha())));
                 statement.setString(2, mantenimiento.getDescripcion());
                 statement.setDouble(3, mantenimiento.getCosto());
                 statement.setString(4, mantenimiento.getTipoMantenimiento());
@@ -38,7 +38,7 @@ public class MantenimientoDAL {
 
             String sql = "UPDATE MantenimientoPC SET Fecha=?, Descripcion=?, Costo=?, TipoMantenimiento=?, EquipoID=? WHERE MantenimientoID=?";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                statement.setTimestamp(1, fechstamp);
+                statement.setDate(1, Date.valueOf(String.valueOf(mantenimiento.getFecha())));
                 statement.setString(2, mantenimiento.getDescripcion());
                 statement.setDouble(3, mantenimiento.getCosto());
                 statement.setString(4, mantenimiento.getTipoMantenimiento());
@@ -76,14 +76,14 @@ public class MantenimientoDAL {
         try (Connection conn = ComunDB.obtenerConexion()) {
             String sql = "SELECT p.MantenimientoID, p.Fecha, p.Descripcion, p.Costo, p.TipoMantenimiento,p.EquipoID, c.Modelo AS ModeloEq FROM MantenimientoPC p";
             sql+=" INNER JOIN Equipos c ON c.EquipoID= p.EquipoID  ";
-            sql+=" WHERE p.Fecha LIKE ? ";
+            sql+=" WHERE p.TipoMantenimiento LIKE ? ";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                statement.setString(1, "%" + mantenimientoSearch.getFecha() + "%");
+                statement.setString(1, "%" + mantenimientoSearch.getTipoMantenimiento() + "%");
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         Mantenimiento mantenimiento = new Mantenimiento();
                         mantenimiento.setMantenimientoId(resultSet.getInt("MantenimientoID"));
-                        mantenimiento.setFecha(resultSet.getString("Fecha"));
+                        mantenimiento.setFecha(resultSet.getDate("Fecha"));
                         mantenimiento.setDescripcion(resultSet.getString("Descripcion"));
                         mantenimiento.setCosto(resultSet.getDouble("Costo"));
                         mantenimiento.setTipoMantenimiento(resultSet.getString("TipoMantenimiento"));

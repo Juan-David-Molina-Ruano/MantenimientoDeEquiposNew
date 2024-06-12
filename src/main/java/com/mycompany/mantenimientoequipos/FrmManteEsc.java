@@ -5,6 +5,7 @@
 package com.mycompany.mantenimientoequipos;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import accesodatos.EquipoDAL;
 import accesodatos.MantenimientoDAL;
@@ -12,6 +13,8 @@ import entidades.Equipo;
 import entidades.Mantenimiento;
 import utilerias.OpcionesCRUD;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class FrmManteEsc extends javax.swing.JFrame {
     private OpcionesCRUD opcionCRUD;
     private Mantenimiento mantenimientoActual = new Mantenimiento();
     private HashMap<Integer, Equipo> mapEquipos = new HashMap<Integer, Equipo>();
+
 
 
     /**
@@ -49,14 +53,16 @@ public class FrmManteEsc extends javax.swing.JFrame {
 
     private Mantenimiento obtenerDatos() {
         Mantenimiento mantenimiento = new Mantenimiento();
-        mantenimiento.setFecha(jTxtFecha.getText());
+        mantenimiento.setFecha(Date.valueOf(jTxtFecha.getText()));
         mantenimiento.setDescripcion(jTxtADesc.getText());
+        mantenimiento.setTipoMantenimiento(jTxtTipoMante.getText());
         mantenimiento.setCosto(Double.parseDouble(jTxtCosto.getText()));
         Equipo equipo = (Equipo) jComboEquipos.getSelectedItem();
         mantenimiento.setEquipoId(equipo.getEquipoId());
         mantenimiento.setMantenimientoId(mantenimientoActual.getMantenimientoId());
         return mantenimiento;
     }
+
 
     private boolean validDatos() {
         boolean valid = true;
@@ -104,7 +110,7 @@ public class FrmManteEsc extends javax.swing.JFrame {
     }
 
     private void asingarDatos(Mantenimiento mantenimiento) {
-        jTxtFecha.setText(mantenimiento.getFecha());
+        jTxtFecha.setText(String.valueOf(mantenimiento.getFecha()));
         jTxtADesc.setText(mantenimiento.getDescripcion());
         jTxtTipoMante.setText(mantenimiento.getTipoMantenimiento());
         jTxtCosto.setText(Double.toString(mantenimiento.getCosto()));
@@ -201,6 +207,9 @@ public class FrmManteEsc extends javax.swing.JFrame {
 
 
         jLabel1.setText("Fecha");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        jTxtFecha.setText(LocalDate.now().format(formatter));
 
         jLabel2.setText("Descripción");
 

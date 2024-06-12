@@ -92,7 +92,13 @@ public class FrmEquiposLec extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nombre");
+        jLabel1.setText("Modelo");
+
+        jTxtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtNombreKeyPressed(evt);
+            }
+        });
 
         jBtnBuscar.setText("Buscar");
         jBtnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +216,10 @@ public class FrmEquiposLec extends javax.swing.JFrame {
         DefaultTableModel modelTable = new DefaultTableModel(datos, columnas);
         jTableEqui.setModel(modelTable);
     }//GEN-LAST:event_jBtnBuscarActionPerformed
+
+    private void jTxtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNombreKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtNombreKeyPressed
 
     /**
      * @param args the command line arguments

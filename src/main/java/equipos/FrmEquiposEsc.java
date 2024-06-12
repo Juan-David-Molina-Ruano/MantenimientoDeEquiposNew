@@ -204,6 +204,9 @@
 
             jLabel6.setText("Modelo");
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            jTxtFechaAd.setText(LocalDate.now().format(formatter));
+
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(

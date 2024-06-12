@@ -4,11 +4,17 @@
  */
 package com.mycompany.mantenimientoequipos;
 
+import accesodatos.MantenimientoDAL;
 import entidades.Equipo;
 import entidades.Mantenimiento;
 import utilerias.OpcionesCRUD;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -45,9 +51,20 @@ public class FrmManteLec extends javax.swing.JFrame {
 
         setTitle("Ver Mantenimientos");
 
-        jLabel1.setText("Nombre");
+        jLabel1.setText("Buscar por tipo");
+
+        jTxtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtNombreKeyPressed(evt);
+            }
+        });
 
         jBtnBuscar.setText("Buscar");
+        jBtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnBuscarActionPerformed(evt);
+            }
+        });
 
         jBtnCrear.setText("Crear");
         jBtnCrear.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +129,7 @@ public class FrmManteLec extends javax.swing.JFrame {
                         .addComponent(jBtnBuscar)
                         .addGap(18, 18, 18)
                         .addComponent(jBtnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +171,7 @@ public class FrmManteLec extends javax.swing.JFrame {
         Mantenimiento mantenimiento = new Mantenimiento();
         int row = jTableMante.getSelectedRow();
         mantenimiento.setMantenimientoId((int) jTableMante.getValueAt(row, 0));
-        mantenimiento.setFecha(jTableMante.getValueAt(row, 1).toString());
+        mantenimiento.setFecha((Date) jTableMante.getValueAt(row, 1));
         mantenimiento.setDescripcion(jTableMante.getValueAt(row, 2).toString());
         mantenimiento.setCosto((double) jTableMante.getValueAt(row, 3));
         mantenimiento.setTipoMantenimiento(jTableMante.getValueAt(row, 4).toString());
@@ -182,6 +199,25 @@ public class FrmManteLec extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtnEditarActionPerformed
 
+    private void rellanarTabla(){
+        Mantenimiento mantenimiento = new Mantenimiento();
+        mantenimiento.setTipoMantenimiento(jTxtNombre.getText());
+        ArrayList<Mantenimiento> mantenimientos = MantenimientoDAL.buscar(mantenimiento);
+        String[] columnas = {"ID Mantenimiento", "Fecha", "Descripcion", "Costo","Tipo de Mantenimiento", "EquipoID", "Equipo"};
+        Object[][] datos = new Object[mantenimientos.size()][7];
+        for (int i = 0; i < mantenimientos.size(); i++) {
+            Mantenimiento item = mantenimientos.get(i);
+            datos[i][0] = item.getMantenimientoId();
+            datos[i][1] = item.getFecha();
+            datos[i][2] = item.getDescripcion();
+            datos[i][3] = item.getCosto();
+            datos[i][4] = item.getTipoMantenimiento();
+            datos[i][5] = item.getEquipoId();
+            datos[i][6] = item.getEquipo().getModelo();
+        }
+        DefaultTableModel modelTable = new DefaultTableModel(datos, columnas);
+        jTableMante.setModel(modelTable);
+    }
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
         // TODO add your handling code here:
         int row = jTableMante.getSelectedRow();
@@ -196,6 +232,16 @@ public class FrmManteLec extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jBtnEliminarActionPerformed
+
+    private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
+        // TODO add your handling code here:
+        rellanarTabla();
+    }//GEN-LAST:event_jBtnBuscarActionPerformed
+
+    private void jTxtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNombreKeyPressed
+        // TODO add your handling code here:
+        rellanarTabla();
+    }//GEN-LAST:event_jTxtNombreKeyPressed
 
     /**
      * @param args the command line arguments

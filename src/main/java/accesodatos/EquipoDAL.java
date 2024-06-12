@@ -19,7 +19,7 @@ public class EquipoDAL {
                 statement.setString(1, equipo.getNumeroSerie());
                 statement.setString(2, equipo.getMarca());
                 statement.setString(3, equipo.getModelo());
-                statement.setDate(4,new java.sql.Date(equipo.getFechaAdqui().getDate()));
+                statement.setDate(4, Date.valueOf(String.valueOf(equipo.getFechaAdqui())));
                 statement.setString(5, equipo.getUbicacion());
                 int rowsAffected = statement.executeUpdate();
                 return rowsAffected;
@@ -40,7 +40,7 @@ public class EquipoDAL {
                 statement.setString(1, equipo.getNumeroSerie());
                 statement.setString(2, equipo.getMarca());
                 statement.setString(3, equipo.getModelo());
-                statement.setDate(4,new java.sql.Date(equipo.getFechaAdqui().getDate()));
+                statement.setDate(4, Date.valueOf(String.valueOf(equipo.getFechaAdqui())));
                 statement.setString(5, equipo.getUbicacion());
                 statement.setInt(6, equipo.getEquipoId());
                 int rowsAffected = statement.executeUpdate();
