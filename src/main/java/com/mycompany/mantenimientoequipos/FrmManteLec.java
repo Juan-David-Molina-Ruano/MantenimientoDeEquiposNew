@@ -179,7 +179,7 @@ public class FrmManteLec extends javax.swing.JFrame {
 
         Equipo equipo= new Equipo();
         equipo.setModelo(jTableMante.getValueAt(row, 6).toString());
-        equipo.setEquipoId((int)jTableMante.getValueAt(row, 7));
+        equipo.setEquipoId((int)jTableMante.getValueAt(row, 5));
         mantenimiento.setEquipo(equipo);
         return mantenimiento;
     }

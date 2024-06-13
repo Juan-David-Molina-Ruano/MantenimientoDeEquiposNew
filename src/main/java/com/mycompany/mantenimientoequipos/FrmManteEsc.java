@@ -28,7 +28,7 @@ public class FrmManteEsc extends javax.swing.JFrame {
 
     private OpcionesCRUD opcionCRUD;
     private Mantenimiento mantenimientoActual = new Mantenimiento();
-    private HashMap<Integer, Equipo> mapEquipos = new HashMap<Integer, Equipo>();
+    private HashMap<Integer, Equipo> mapEquipos = new HashMap <Integer, Equipo>();
 
 
 
